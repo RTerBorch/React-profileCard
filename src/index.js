@@ -2,6 +2,34 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles.css";
 
+const skillData = [
+  {
+    name: "Javascript",
+    level: "intermediate",
+    color: "green",
+  },
+  {
+    name: "Java",
+    level: "pro",
+    color: "blue",
+  },
+  {
+    name: "React",
+    level: "beginner",
+    color: "yellow",
+  },
+  {
+    name: "Kotlin",
+    level: "beginner",
+    color: "purple",
+  },
+  {
+    name: "vb.net",
+    level: "beginner",
+    color: "pink",
+  },
+];
+
 function App() {
   return (
     <div className="card">
@@ -32,33 +60,53 @@ function Intro(props) {
   );
 }
 function SkillList() {
+  const skillDataList = skillData;
+
   return (
     <main>
-      <Skill
-        name="JavaScript"
-        emojii={String.fromCodePoint(0x1f44d)}
-        color="blue"
-      />
-      <Skill name="CSS" emojii={String.fromCodePoint(0x1f60a)} color="red" />
-      <Skill
-        name="Java"
-        emojii={String.fromCodePoint(0x1f44d)}
-        color="yellow"
-      />
-      <Skill name="Html" emojii={String.fromCodePoint(0x1f60a)} color="green" />
+      {skillDataList.map((skill) => (
+        <Skill skillObj={skill} key={skill.name} />
+      ))}
     </main>
   );
 }
 
-function Skill(props) {
-  console.log(props);
+function Skill({ skillObj }) {
+  console.log(skillObj);
+  var level = skillObj.level;
+
+  switch (skillObj.level) {
+    case "beginner":
+      level = "👍";
+      break;
+    case "intermediate":
+      level = "🙏";
+      break;
+    case "pro":
+      level = "💪";
+      break;
+    default:
+      level = "";
+      break;
+  }
+
   return (
-    <div className="skill-list" style={{ backgroundColor: props.color }}>
-      <h3>{props.name}</h3>
-      <p>{props.emojii}</p>
-    </div>
+    <ul className="skill-list" style={{ backgroundColor: skillObj.color }}>
+      <h3>{skillObj.name}</h3>
+      <p>{level}</p>{" "}
+    </ul>
   );
 }
+
+// function Skill(props) {
+//   console.log(props);
+//   return (
+//     <div className="skill-list" style={{ backgroundColor: props.color }}>
+//       <h3>{props.name}</h3>
+//       <p>{props.emojii}</p>
+//     </div>
+//   );
+// }
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
